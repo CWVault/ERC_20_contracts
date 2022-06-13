@@ -1,1 +1,1 @@
-# CWV_Contract
+# ERC_20_contracts
