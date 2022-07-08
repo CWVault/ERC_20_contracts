@@ -9,7 +9,7 @@ import "./Groups.sol";
 
 contract XVTToken is ERC20, AccessControl, Pausable {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-    bytes32 public constant ATTORNEY_ROLE = keccak256("ATTORNEY_ROLE");
+    bytes32 public constant  CONTROLLER_ROLE = keccak256(" CONTROLLER_ROLE");
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
     bytes32 public constant OWNER_ROLE = keccak256("OWNER_ROLE");
 
@@ -39,7 +39,7 @@ contract XVTToken is ERC20, AccessControl, Pausable {
         _setupRole(OWNER_ROLE, msg.sender);
         _setupRole(ADMIN_ROLE, msg.sender);
         _setupRole(OPERATOR_ROLE, msg.sender);
-        _setupRole(ATTORNEY_ROLE, msg.sender);
+        _setupRole( CONTROLLER_ROLE, msg.sender);
 
         _mint(msg.sender, initialSupply);
     }
@@ -93,11 +93,11 @@ contract XVTToken is ERC20, AccessControl, Pausable {
     }
     //Pause and unPause
 
-    function pause() public onlyRole(ATTORNEY_ROLE){
+    function pause() public onlyRole( CONTROLLER_ROLE){
         _pause();
     }
 
-    function unPause() public onlyRole(ATTORNEY_ROLE){
+    function unPause() public onlyRole( CONTROLLER_ROLE){
         _unpause();
     }
 
@@ -213,11 +213,11 @@ contract XVTToken is ERC20, AccessControl, Pausable {
         super.revokeRole(OPERATOR_ROLE, newOperator);
     }
 
-    function addAttorney(address newAccount) public isNotFrozen onlyRole(ADMIN_ROLE){
-        super.grantRole(ATTORNEY_ROLE, newAccount);
+    function addController(address newAccount) public isNotFrozen onlyRole(ADMIN_ROLE){
+        super.grantRole( CONTROLLER_ROLE, newAccount);
     }
 
-    function revokeAttorney( address newAccount) public isNotFrozen onlyRole(ADMIN_ROLE){
-        super.revokeRole(ATTORNEY_ROLE, newAccount);
+    function revokeController( address newAccount) public isNotFrozen onlyRole(ADMIN_ROLE){
+        super.revokeRole( CONTROLLER_ROLE, newAccount);
     }
 }
